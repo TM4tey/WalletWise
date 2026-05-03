@@ -1,0 +1,35 @@
+### Új kategória létrehozása
+POST http://localhost:8080/api/categories
+Content-Type: application/json
+
+{
+  "name": "Étel"
+}
+
+<> 2026-05-03T222309.200.json
+
+### Új kiadás rögzítése
+POST http://localhost:8080/api/expenses
+Content-Type: application/json
+
+{
+  "description": "Margeritha pizza",
+  "amount": 3200.0,
+  "date": "2023-10-27",
+  "category": {
+    "id": 1
+  }
+}
+
+<> 2026-05-03T222310.200.json
+
+### Összes kiadás lekérése
+GET http://localhost:8080/api/expenses
+
+<> 2026-05-03T221916.200.json
+
+### Egy konkrét kiadás törlése (id: 1)
+DELETE http://localhost:8080/api/expenses/1
+
+### Törlés tesztelése nem létező ID-val (404-et kell kapnod!)
+DELETE http://localhost:8080/api/expenses/999
