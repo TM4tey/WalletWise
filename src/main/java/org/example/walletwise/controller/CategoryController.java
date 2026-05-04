@@ -1,11 +1,12 @@
 package org.example.walletwise.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.walletwise.model.Category;
 import org.example.walletwise.service.CategoryService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor

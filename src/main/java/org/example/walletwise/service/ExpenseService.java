@@ -1,8 +1,8 @@
 package org.example.walletwise.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.walletwise.model.Expense;
 import org.example.walletwise.repository.ExpenseRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
