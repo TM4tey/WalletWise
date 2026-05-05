@@ -9,9 +9,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ExpenseServiceTest {
@@ -23,17 +24,36 @@ class ExpenseServiceTest {
     private ExpenseService expenseService;
 
     @Test
-    void testFindAllReturnsList() {
-        // Given
+    void testFindAll() {
+        when(expenseRepository.findAll()).thenReturn(List.of(new Expense()));
+        assertEquals(1, expenseService.findAll().size());
+    }
+
+    @Test
+    void testFindById() {
         Expense expense = new Expense();
-        expense.setDescription("Test pizza");
-        when(expenseRepository.findAll()).thenReturn(List.of(expense));
+        expense.setId(1L);
+        when(expenseRepository.findById(1L)).thenReturn(Optional.of(expense));
 
-        // When
-        List<Expense> result = expenseService.findAll();
+        Optional<Expense> found = expenseService.findById(1L);
+        assertTrue(found.isPresent());
+        assertEquals(1L, found.get().getId());
+    }
 
-        // Then
-        assertEquals(1, result.size());
-        assertEquals("Test pizza", result.get(0).getDescription());
+    @Test
+    void testSave() {
+        Expense expense = new Expense();
+        when(expenseRepository.save(any(Expense.class))).thenReturn(expense);
+
+        Expense saved = expenseService.save(new Expense());
+        assertNotNull(saved);
+        verify(expenseRepository, times(1)).save(any());
+    }
+
+    @Test
+    void testDelete() {
+        doNothing().when(expenseRepository).deleteById(1L);
+        expenseService.deleteById(1L);
+        verify(expenseRepository, times(1)).deleteById(1L);
     }
 }

@@ -8,24 +8,41 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Expense service.
+ */
 @Service
 @RequiredArgsConstructor
-public class ExpenseService {
+public final class ExpenseService {
+
+    /** The repository. */
     private final ExpenseRepository expenseRepository;
 
+    /** @return all expenses. */
     public List<Expense> findAll() {
         return expenseRepository.findAll();
     }
 
-    public Optional<Expense> findById(Long id) {
+    /**
+     * Finds an expense by its identifier.
+     * @param id the id of the expense.
+     * @return the optional expense found.
+     */
+    public Optional<Expense> findById(final Long id) {
         return expenseRepository.findById(id);
     }
 
-    public Expense save(Expense expense) {
+    /**
+     * Saves the given expense.
+     * @param expense the expense to save.
+     * @return the saved expense entity.
+     */
+    public Expense save(final Expense expense) {
         return expenseRepository.save(expense);
     }
 
-    public void deleteById(Long id) {
+    /** @param id the id to delete. */
+    public void deleteById(final Long id) {
         expenseRepository.deleteById(id);
     }
 }
